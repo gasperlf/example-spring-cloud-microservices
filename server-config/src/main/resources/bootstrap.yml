@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: server-configuration-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${git.uri}
+          username: ${git.username}
+          password: ${git.password}
+          searchPaths: ${git.searchPaths}
+          default-label: ${git.branch}
+        native:
+          add-label-locations: false
+          search-locations: file://${native.searchLocation}/{application}
+  profiles:
+    active: ${api.profiles.mode}
+encrypt:
+  fail-on-error: false

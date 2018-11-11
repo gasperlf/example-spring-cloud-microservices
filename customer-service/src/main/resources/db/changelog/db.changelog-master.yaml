@@ -1,0 +1,10 @@
+databaseChangeLog:
+#   - includeAll:
+#     - path: './src/main/resources/db/changelog/R1/scripts/'
+#     - relativeToChangelogFile: false
+#     - errorIfMissingOrEmpty: true
+#     - issue:
+
+- include:
+  - file: R1/scripts/v_01_create_customer.sql
+  - relativeToChangelogFile: true

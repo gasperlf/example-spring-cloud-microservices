@@ -1,0 +1,14 @@
+databaseChangeLog:
+#   - includeAll:
+#     - path: './src/main/resources/db/changelog/R1/scripts/'
+#     - relativeToChangelogFile: false
+#     - errorIfMissingOrEmpty: true
+#     - issue:
+
+- include:
+  - file: R1/scripts/v_1_0_0_ms_ss_00_create_table_applications.sql
+  - relativeToChangelogFile: true
+
+- include:
+  - file: R1/scripts/v_1_0_0_ms_ss_01_insert_table_applications.sql
+  - relativeToChangelogFile: true

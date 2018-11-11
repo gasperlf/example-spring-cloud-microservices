@@ -1,0 +1,7 @@
+spring:
+  profiles:
+    active: application
+  cloud:
+    config:
+      uri: ${config-server.uri}
+      name: financial

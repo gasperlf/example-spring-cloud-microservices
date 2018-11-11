@@ -1,0 +1,24 @@
+server:
+  port: 8888
+
+info:
+  app:
+    version: "@project.version@"
+    artifact: "@project.artifactId@"
+    group: "@project.groupId@"
+    lastBuildDate: "@timestamp@"
+    jenkins-build: "@jenkins.build.number@"
+  java:
+    version: "@java.version@"
+  properties:
+    mode: ${api.profiles.mode}
+    native:
+      folder: ${native.searchLocation}
+    git:
+      branch: ${git.branch}
+      uri: ${git.uri}
+      searchPaths: ${git.searchPaths}
+management:
+  server:
+    servlet:
+      context-path: /admin

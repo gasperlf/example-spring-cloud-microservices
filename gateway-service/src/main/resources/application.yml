@@ -1,0 +1,57 @@
+server:
+  port: ${service.gateway.port}
+
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMathods:
+              - GET
+              - POST
+              - OPTIONS
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        - id: financial_service
+          uri: lb://financial-service
+          predicates:
+            - Path=/quotes/**
+        - id: security_service
+          uri: lb://security-service
+          predicates:
+            - Path=/v1/tokens/**
+        - id: customer_service
+          uri: lb://customer-service
+          predicates:
+            - Path=/v1/customers/**
+  application:
+    name: ${service.gateway.name}
+
+eureka:
+  instance:
+    hostname: ${service.registry.host}
+    health-check-url: ${service.registry.schema}://${eureka.instance.hostname}:${server.port}${management.server.servlet.context-path}/health
+    status-page-url:  ${service.registry.schema}://${eureka.instance.hostname}:${server.port}${management.server.servlet.context-path}/info
+  client:
+    fetch-registry: true
+    register-with-eureka: false
+    service-url:
+      defaultZone: ${service.registry.schema}://${service.registry.host}:${service.registry.port}/eureka
+
+management:
+  server:
+    servlet:
+      context-path: /${service.gateway.name}/manager
+
+info:
+  app:
+    version: "@project.version@"
+    artifact: "@project.artifactId@"
+    group: "@project.groupId@"
+  java:
+    version: "@java.version@"
