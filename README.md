@@ -27,6 +27,14 @@ Java jdk 8
 6. Security-service
 7. workspace (in this folder you'll find properties files [local, docker[feature]])
 
+### Command
+ 
+ java -jar [parameters] [name component]
+
+#### Example 
+
+java -jar -Dname.property=value example.jar
+
 Follow the next steps.
 1. run Server-config, this will run on port localhost:8888, on  this you need to pass some variables like parameters
     ´´
