@@ -75,6 +75,7 @@ Follow the next steps.
 	` docker run --name=mysql1 -d mysql/mysql-server:tag `
 	
 	Example:
+	
 	     - we wil download the image and create container
     
 		    ` docker run --name=mysql-docker -p 3306:3306  -e MYSQL_ROOT_PASSWORD=root -d mysql:latest `
@@ -83,11 +84,11 @@ Follow the next steps.
 		-We will run de container
 		
 			` docker run <container id> -it /bin/bash ` 
-			 get in de docker container
+			  get in de docker container
 		
 		-We log in in mysql container
 			 
-			 `mysql -u root -p `
+			 ` mysql -u root -p `
 			 
 			  after mysql asks for password which is ***root***
 			 
@@ -97,6 +98,7 @@ Follow the next steps.
 			
 			output
 			`
+			
 			+--------------------+
 			| Database           |
 			+--------------------+
@@ -105,6 +107,7 @@ Follow the next steps.
 			| performance_schema |
 			| sys                |
 			+--------------------+ 
+			
 			`
 		- we create databases according to properties [Security-services and Customer-services]	
 		   
