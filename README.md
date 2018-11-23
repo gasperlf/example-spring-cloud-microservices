@@ -70,7 +70,7 @@ Follow the next steps.
        
     ` -Dconfig-server.uri=http://localhost:8888 ` 
 
-7. Creating docker container database - mysql
+7.  Creating docker container database - mysql
 	
 	` docker run --name=mysql1 -d mysql/mysql-server:tag `
 	
@@ -79,26 +79,27 @@ Follow the next steps.
 	     - we wil download the image and create container
     
 		    ` docker run --name=mysql-docker -p 3306:3306  -e MYSQL_ROOT_PASSWORD=root -d mysql:latest `
+		    
 		    by default user = root
 		
-		-We will run de container
+		- We will run de container
 		
 			` docker run <container id> -it /bin/bash ` 
+			
 			  get in de docker container
 		
-		-We log in in mysql container
+		- We log in in mysql container
 			 
 			 ` mysql -u root -p `
 			 
-			  after mysql asks for password which is ***root***
+			  after mysql asks for password which is *root*
 			 
-		-We will use mysql commnads	
+		- We will use mysql commnads	
 			
 			` show databases; `
 			
 			output
 			`
-			
 			+--------------------+
 			| Database           |
 			+--------------------+
@@ -107,7 +108,6 @@ Follow the next steps.
 			| performance_schema |
 			| sys                |
 			+--------------------+ 
-			
 			`
 		- we create databases according to properties [Security-services and Customer-services]	
 		   
