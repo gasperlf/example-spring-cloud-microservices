@@ -26,7 +26,8 @@ Java jdk 8
 5. Financial-service
 6. Security-service
 7. workspace (in this folder you'll find properties files [local, docker[feature]])
-8. crete docker image mysql
+8. create docker image-instance mysql
+
 
 ### Command
  
@@ -74,33 +75,33 @@ Follow the next steps.
 	
 	` docker run --name=mysql1 -d mysql/mysql-server:tag `
 	
-	Example:
-	
-	     - we wil download the image and create container
-    
-		    ` docker run --name=mysql-docker -p 3306:3306  -e MYSQL_ROOT_PASSWORD=root -d mysql:latest `
-		    
+	Example
+	  
+	  - we wil download the image and create container
+			
+			` docker run --name=mysql-docker -p 3306:3306  -e MYSQL_ROOT_PASSWORD=root -d mysql:latest  `
+	    
 		    by default user = root
 		
-		- We will run de container
+	  - We will run de container
 		
 			` docker run <container id> -it /bin/bash ` 
 			
 			  get in de docker container
 		
-		- We log in in mysql container
+	   - We log in in mysql container
 			 
 			 ` mysql -u root -p `
 			 
 			  after mysql asks for password which is *root*
 			 
-		- We will use mysql commnads	
+	  - We will use mysql commnads	
 			
 			` show databases; `
 			
 			output
 			`
-			+--------------------+
+			+--------------------+     
 			| Database           |
 			+--------------------+
 			| information_schema |
@@ -109,10 +110,8 @@ Follow the next steps.
 			| sys                |
 			+--------------------+ 
 			`
-		- we create databases according to properties [Security-services and Customer-services]	
-		   
-		   statement
-		   
+	  - we create databases according to properties [Security-services and Customer-services]	execute the next statements
+	  
 		   ` CREATE DATABASE customer_service; ` 
 		   ` CREATE DATABASE security_service; ` 		   
 			
