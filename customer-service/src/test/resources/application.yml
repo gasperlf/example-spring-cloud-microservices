@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: ${service.customer.name}
+eureka:
+  instance:
+    hostname: ${service.registry.host}
+    instanceId: ${spring.application.name}:${server.port}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+    health-check-url: ${service.registry.schema}://${eureka.instance.hostname}:${server.port}${management.server.servlet.context-path}/health
+    status-page-url:  ${service.registry.schema}://${eureka.instance.hostname}:${server.port}${management.server.servlet.context-path}/info
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${service.registry.schema}://${service.registry.host}:${service.registry.port}/eureka
+
+management:
+  server:
+    servlet:
+      context-path: /${service.customer.name}/manager
+
+info:
+  app:
+    version: "@project.version@"
+    artifact: "@project.artifactId@"
+    group: "@project.groupId@"
+    lastBuildDate: "@timestamp@"
+    jenkins-build: "@jenkins.build.number@"
+  java:
+    version: "@java.version@"

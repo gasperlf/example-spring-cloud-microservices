@@ -4,4 +4,5 @@ spring:
   cloud:
     config:
       uri: ${config-server.uri}
-      name: cliente
+      name: customer
+      enabled: true

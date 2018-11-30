@@ -1,4 +1,4 @@
-package lf.com.serverconfig;
+package co.com.customerservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,11 +9,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource("classpath:application.properties")
-public class ServerConfigApplicationTests {
+public class CustomerServiceApplicationTests {
 
     @Test
     public void contextLoads() {
-        ServerConfigApplication.main(new String[] {"--api.profiles.mode=native"});
+        CustomerServiceApplication.main(new String[] {"--config-server.uri=http://localhost:8888",
+                                                      "--service.registry.host=localhost"});
     }
 
 }
