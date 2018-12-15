@@ -1,6 +1,10 @@
 spring:
   application:
     name: server-configuration-service
+  security:
+    user:
+      name: user-server-config
+      password: 123456789!#
   cloud:
     config:
       server:
@@ -10,6 +14,14 @@ spring:
           password: ${git.password}
           searchPaths: ${git.searchPaths}
           default-label: ${git.branch}
+          skip-ssl-validation: true
+#          proxy:
+#            https:
+#              host: my-proxy.host.io
+#              password: myproxypassword
+#              port: '3128'
+#              username: myproxyusername
+#              nonProxyHosts: example.com
         native:
           add-label-locations: false
           search-locations: file://${native.searchLocation}/{application}
