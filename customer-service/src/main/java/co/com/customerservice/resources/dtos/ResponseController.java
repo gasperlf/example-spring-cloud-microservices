@@ -13,11 +13,11 @@ import java.util.List;
 public class ResponseController<T> {
 
     private T data;
-    private List<ErrorResponseMessage> errors;
+    private ErrorResponseMessage error;
 
     public ResponseController(T data){
         this.data = data;
-        this.errors = new ArrayList<>();
+        this.error = null;
     }
 }
 

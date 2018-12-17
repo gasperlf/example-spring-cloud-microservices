@@ -8,3 +8,7 @@ databaseChangeLog:
 - include:
   - file: R1/scripts/v_01_create_customer.sql
   - relativeToChangelogFile: true
+
+- include:
+  - file: R1/scripts/v_02_create_customer_company.sql
+  - relativeToChangelogFile: true

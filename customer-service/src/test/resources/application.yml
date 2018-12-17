@@ -14,9 +14,15 @@ eureka:
       defaultZone: ${service.registry.schema}://${service.registry.host}:${service.registry.port}/eureka
 
 management:
+  endpoints:
+    web:
+      exposure:
+        include: *
+      base-path: /${service.customer.name}/manager/
   server:
     servlet:
-      context-path: /${service.customer.name}/manager
+      context-path: /${service.customer.name}/manager/
+    port: 6001
 
 info:
   app:

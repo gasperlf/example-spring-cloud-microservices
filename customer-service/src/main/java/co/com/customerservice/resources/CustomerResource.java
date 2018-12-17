@@ -1,35 +1,45 @@
 package co.com.customerservice.resources;
 
 import co.com.customerservice.datasource.entities.Customer;
+import co.com.customerservice.datasource.entities.CustomerCompany;
+import co.com.customerservice.resources.dtos.CustomerFollowCompanyDto;
 import co.com.customerservice.resources.dtos.CustomerDto;
-import co.com.customerservice.resources.dtos.ResponseController;
-import co.com.customerservice.services.BusunessLogicCustomer;
+import co.com.customerservice.services.BusinessLogicCustomer;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import java.util.List;
 
 
 @RestController
 @RequestMapping(path = "/v1/customers")
 public class CustomerResource {
 
-    private final BusunessLogicCustomer busunessLogicCustomer;
+    private final BusinessLogicCustomer businessLogicCustomer;
 
-    public CustomerResource(BusunessLogicCustomer busunessLogicCustomer){
-        this.busunessLogicCustomer = busunessLogicCustomer;
+    public CustomerResource(BusinessLogicCustomer businessLogicCustomer){
+        this.businessLogicCustomer = businessLogicCustomer;
     }
 
     @PostMapping(path = "/new",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void registerCustomer(@Valid @RequestBody CustomerDto customer){
-        busunessLogicCustomer.save(new Customer(customer));
+    public ResponseEntity<Mono<?>> registerCustomer(@Valid @RequestBody CustomerDto customer){
+        businessLogicCustomer.save(new Customer(customer));
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping(path = "/search", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Mono<ResponseController<List<Customer>>> findCustomerByName(@RequestParam (name = "name") String parameterName){
-        List<Customer> customers = busunessLogicCustomer.fincCustomerByName(parameterName);
-        return Mono.just(new ResponseController<>(customers));
+    public ResponseEntity<Flux<Customer>> findCustomerByName(@RequestParam (name = "name") String parameterName){
+        return ResponseEntity.ok(businessLogicCustomer.findCustomerByName(parameterName));
+    }
+
+    @PostMapping(path = "/registerCustomerCompany", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Mono<?>> registerCustomerFollowCompany(@Valid @RequestBody CustomerFollowCompanyDto companyCustumerDto){
+        Mono<CustomerCompany> customerCompany = Mono.justOrEmpty(new CustomerCompany(companyCustumerDto));
+        businessLogicCustomer.save(customerCompany);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

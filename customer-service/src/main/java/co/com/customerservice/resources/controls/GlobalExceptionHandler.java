@@ -1,42 +1,50 @@
 package co.com.customerservice.resources.controls;
 
 import co.com.customerservice.exceptions.DataNotFoundException;
+import co.com.customerservice.exceptions.ValidationDataException;
 import co.com.customerservice.resources.dtos.ErrorResponseMessage;
 import co.com.customerservice.resources.dtos.ResponseController;
 import co.com.customerservice.resources.dtos.TypeMessage;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice(annotations = RestController.class)
-public class GlobalExceptionHandler {
-
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public Mono<ResponseEntity<ResponseController>> handledHttpMessageNotReadableException(HttpMessageNotReadableException e) {
-
-        ErrorResponseMessage error = new ErrorResponseMessage();
-        error.setMessage(e.getMessage());
-        error.setType(TypeMessage.SYSTEM.getType());
-        List<ErrorResponseMessage> errors = new ArrayList<>();
-        errors.add(error);
-        return Mono.just(ResponseEntity.badRequest().body(ResponseController.builder().errors(errors).build()));
-    }
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(DataNotFoundException.class)
-    public Mono<ResponseEntity<ResponseController>> handleDataNotFoundException(DataNotFoundException e){
+    public ResponseEntity<Object> handleDataNotFoundException(DataNotFoundException ex) {
 
-        ErrorResponseMessage error = new ErrorResponseMessage();
-        error.setCode(e.getCode());
-        error.setMessage(e.getMessage());
-        error.setType(TypeMessage.DATA.getType());
-        List<ErrorResponseMessage> errors = new ArrayList<>();
-        errors.add(error);
-        return Mono.just(ResponseEntity.badRequest().body(ResponseController.builder().errors(errors).build()));
+        return ResponseEntity.badRequest().body(ResponseController.builder().error(ErrorResponseMessage.builder()
+                .message(ex.getMessage())
+                .type(TypeMessage.DATA.getType())
+                .code(ex.getCode())
+                .build()).build());
+    }
+
+    @ExceptionHandler(ValidationDataException.class)
+    public ResponseEntity<Object> handleValidationDataException(ValidationDataException ex) {
+
+        return ResponseEntity.badRequest().body(ResponseController.builder().error(ErrorResponseMessage.builder()
+                .message(ex.getMessage())
+                .type(TypeMessage.DATA.getType())
+                .code(ex.getCode())
+                .build()).build());
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+        return ResponseEntity.status(status).body(ResponseController.builder().error(ErrorResponseMessage.builder()
+                .message(ex.getMessage())
+                .type(TypeMessage.SYSTEM.getType())
+                .code("NAN")
+                .build()));
     }
 }
