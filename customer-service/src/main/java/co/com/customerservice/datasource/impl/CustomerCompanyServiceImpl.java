@@ -3,11 +3,14 @@ package co.com.customerservice.datasource.impl;
 import co.com.customerservice.datasource.CustomerCompanyService;
 import co.com.customerservice.datasource.entities.CustomerCompany;
 import co.com.customerservice.datasource.repositories.CustomerCompanyRepository;
+import co.com.customerservice.exceptions.DataNotFoundException;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -32,5 +35,14 @@ public class CustomerCompanyServiceImpl implements CustomerCompanyService {
 
     private Mono<CustomerCompany> save(CustomerCompany customerCompany){
         return Mono.just(this.customerCompanyRepository.save(customerCompany));
+    }
+
+    @Override
+    public Flux<CustomerCompany> findCustomerCompanyByCustomerIdActives(Integer customerId){
+        Optional<List<CustomerCompany>> customerCompanyList = this.customerCompanyRepository.findByCustomerIdAndState(customerId,true);
+        if(customerCompanyList.get().isEmpty()){
+            throw new DataNotFoundException("001", "Data not found");
+        }
+        return  Flux.fromIterable(customerCompanyList.get());
     }
 }

@@ -9,4 +9,6 @@ public interface CustomerCompanyService {
     public Flux<CustomerCompany> findCustomerCompanyByCustomerIdAndCompanyAllActive(Integer customerId, String company);
 
     public Mono<CustomerCompany> save(Mono<CustomerCompany> customerCompany);
+
+    public Flux<CustomerCompany> findCustomerCompanyByCustomerIdActives(Integer customerId);
 }

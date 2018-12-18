@@ -27,11 +27,11 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Finalcial-service")
-                .description("API financial service").version("1.0.0")
+        return new ApiInfoBuilder().title("Financial-service")
+                .description("API financial service").version("2.0.0")
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0")
-                .contact(new Contact("Lewis", "","gasper_lf@hotmail.com "))
+                .contact(new Contact("Lewis Florez", "","gasper_lf@hotmail.com "))
                 .build();
     }
 }

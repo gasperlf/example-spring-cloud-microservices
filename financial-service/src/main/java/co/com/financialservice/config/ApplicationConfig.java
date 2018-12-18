@@ -13,7 +13,7 @@ public class ApplicationConfig {
 
     @Bean
     public WebClient createWebClient() {
-        return WebClient.builder().filter(logRequest()).filter(logResposneStatus()).build();
+        return WebClient.builder().filter(logRequest()).filter(logResponseStatus()).build();
     }
 
     private ExchangeFilterFunction logRequest() {
@@ -24,7 +24,7 @@ public class ApplicationConfig {
         });
     }
 
-    private ExchangeFilterFunction logResposneStatus() {
+    private ExchangeFilterFunction logResponseStatus() {
         return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
             log.info("Response Status {}", clientResponse.statusCode());
             return Mono.just(clientResponse);

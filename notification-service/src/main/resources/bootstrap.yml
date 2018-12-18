@@ -1,10 +1,10 @@
 spring:
   profiles:
-    active: application, externalservices
+    active: application
   cloud:
     config:
       uri: ${config-server.uri}
-      name: financial
+      name: notification
       enabled: true
       username: user-server-config
       password: 123456789!#

@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface CustomerCompanyRepository extends JpaRepository<CustomerCompany,Integer> {
 
     Optional<List<CustomerCompany>> findByCustomerIdAndCompanyAndState(Integer customerId,String company, Boolean state);
+
+    Optional<List<CustomerCompany>> findByCustomerIdAndState(Integer integer, Boolean state);
 }

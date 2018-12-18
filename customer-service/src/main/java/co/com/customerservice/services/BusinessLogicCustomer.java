@@ -15,5 +15,6 @@ public interface BusinessLogicCustomer {
 
     public Mono<CustomerCompany> save(Mono<CustomerCompany> customerCompany);
 
+    public Flux<CustomerCompany> findCustomerCompanyByCustomerId(Integer customerId);
 
 }

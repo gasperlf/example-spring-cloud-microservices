@@ -11,6 +11,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.util.List;
+
 @Service
 public class BusinessLogicCustomerImpl implements BusinessLogicCustomer {
 
@@ -42,16 +44,25 @@ public class BusinessLogicCustomerImpl implements BusinessLogicCustomer {
         customer.subscribe();
 
         Mono<CustomerCompany> customerCompanyMono1 = customerCompanyMono.flatMap(customerCompany -> {
-            Flux<CustomerCompany> customerCompanyFlux = this.customerCompanyService.findCustomerCompanyByCustomerIdAndCompanyAllActive(customerCompany.getCustomerId(), customerCompany.getCompany());
-            customerCompanyFlux.subscribe();
-            if (!customerCompanyFlux.collectList().block().isEmpty()) {
-                throw new ValidationDataException("001", "Company already was registered");
-            }
-            return this.customerCompanyService.save(customerCompanyMono);
+            Mono<Boolean> validationListMono = this.customerCompanyService.findCustomerCompanyByCustomerIdAndCompanyAllActive(customerCompany.getCustomerId(), customerCompany.getCompany())
+                    .collectList()
+                    .map(customerCompanies -> customerCompanies.isEmpty());
+            validationListMono.subscribe();
+
+            return validationListMono.flatMap(aBoolean -> {
+                if(!aBoolean){
+                    throw new ValidationDataException("001", "Company already was registered");
+                }
+                return this.customerCompanyService.save(customerCompanyMono);
+            });
         });
         customerCompanyMono1.subscribe();
         return customerCompanyMono1;
+    }
 
+    @Override
+    public Flux<CustomerCompany> findCustomerCompanyByCustomerId(Integer customerId){
+        return this.customerCompanyService.findCustomerCompanyByCustomerIdActives(customerId);
     }
 
 }
