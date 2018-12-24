@@ -16,8 +16,6 @@ eureka:
 management:
   endpoints:
     web:
-      exposure:
-        include: *
       base-path: /${service.customer.name}/manager/
   server:
     servlet:
