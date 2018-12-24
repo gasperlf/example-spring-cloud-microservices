@@ -1,16 +1,14 @@
-package lf.com.rabbitbusservice;
+package lf.com.financialservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication
 @EnableDiscoveryClient
-public class RabbitBusServiceApplication {
+@SpringBootApplication
+public class FinancialServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RabbitBusServiceApplication.class, args);
+        SpringApplication.run(FinancialServiceApplication.class, args);
     }
-
 }
-

@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>lf.com</groupId>
-    <artifactId>secutity-service</artifactId>
-    <version>1.0.0</version>
+    <artifactId>security-service</artifactId>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
 
-    <name>secutity-service</name>
+    <name>security-service</name>
     <description>Generate and validate token app</description>
 
     <parent>
@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-cloud.version>Greenwich.M3</spring-cloud.version>
+        <spring-cloud.version>Greenwich.RC1</spring-cloud.version>
         <jacoco.version>0.8.2</jacoco.version>
     </properties>
 
@@ -151,7 +151,7 @@
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>attach-souces</id>
+                        <id>attach-source</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>jar</goal>
@@ -165,7 +165,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>attach-javadocc</id>
+                        <id>attach-javadoc</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>jar</goal>
@@ -179,7 +179,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.0</version>
                 <configuration>
-                    <imageName>security-service-docker</imageName>
+                    <imageName>${project.artifactId}-docker</imageName>
                     <baseImage>java</baseImage>
                     <entryPoint>["java", "-Djava.security.egd=file:/dev/./urandom", "-jar",
                         "/${project.build.finalName}.jar"]

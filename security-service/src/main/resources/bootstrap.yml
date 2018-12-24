@@ -5,3 +5,6 @@ spring:
     config:
       uri: ${config-server.uri}
       name: security
+      enabled: true
+      username: user-server-config
+      password: 123456789!#

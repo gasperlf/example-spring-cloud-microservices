@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>co.com</groupId>
+    <groupId>lf.com</groupId>
     <artifactId>customer-service</artifactId>
     <version>2.0.0</version>
     <packaging>jar</packaging>
@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-cloud.version>Greenwich.M3</spring-cloud.version>
+        <spring-cloud.version>Greenwich.RC1</spring-cloud.version>
         <jacoco.version>0.8.2</jacoco.version>
     </properties>
 
@@ -193,7 +193,7 @@
                 </executions>
             </plugin>
 
-<!--            <plugin>
+            <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.0</version>
@@ -203,7 +203,7 @@
                     <entryPoint>["java", "-Djava.security.egd=file:/dev/./urandom", "-jar",
                         "/${project.build.finalName}.jar"]
                     </entryPoint>
-                    &lt;!&ndash; copy the service's jar file from target into the root directory of the image &ndash;&gt;
+                    <!-- copy the service's jar file from target into the root directory of the image -->
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
@@ -212,7 +212,7 @@
                         </resource>
                     </resources>
                 </configuration>
-            </plugin>-->
+            </plugin>
 
 
         </plugins>
