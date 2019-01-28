@@ -17,7 +17,6 @@ eureka:
     register-with-eureka: false
     service-url:
       defaultZone: ${service.registry.schema}://${eureka.instance.hostname}:${server.port}/eureka
-
   server:
     enable-self-preservation: false
 

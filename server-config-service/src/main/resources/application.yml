@@ -18,7 +18,14 @@ info:
       branch: ${git.branch}
       uri: ${git.uri}
       searchPaths: ${git.searchPaths}
+
 management:
   server:
     servlet:
-      context-path: ${spring.application.name}/admin
+      context-path: /${spring.application.name}/admin
+    port: 9999
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
